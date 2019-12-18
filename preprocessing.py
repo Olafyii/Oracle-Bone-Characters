@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 root_path='F:\\数字图像处理\\DIP 2'
 
 txt = open(os.path.join(root_path, 'images_labels.txt'), 'w')
-path = 'F:\\数字图像处理\\DIP 2\\dataset'
+path = os.path.join(root_path, 'dataset')
 for root, dirs, files in os.walk(path):
     if len(dirs) == 0:
         label = os.path.split(root)[1]
