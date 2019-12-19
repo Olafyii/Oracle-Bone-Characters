@@ -115,10 +115,10 @@ def main():
     #     batch_size=args.test_batch_size, shuffle=True, **kwargs)
 
     train_loader = torch.utils.data.DataLoader(
-        dataset(mode='train', size=256),
+        dataset(root_path='/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters', mode='train', size=256),
         batch_size=args.batch_size, shuffle=True, **kwargs)
     test_loader = torch.utils.data.DataLoader(
-        dataset(mode='test', size=256),
+        dataset(root_path='/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters', mode='test', size=256),
         batch_size=args.test_batch_size, shuffle=True, **kwargs)
 
     model = Alex().to(device)
