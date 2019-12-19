@@ -55,8 +55,8 @@ if __name__ == '__main__':
     device = torch.device('cuda')
 
     model = Alex().to(device)
-    trainset = dataset(mode='train', size=256)
-    testset = dataset(mode='test', size=256)
+    trainset = dataset(root_path='/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters', mode='train', size=256)
+    testset = dataset(root_path='/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters', mode='test', size=256)
 
     params = {'batch_size': 64, 'shuffle': True, 'num_workers': 0, 'pin_memory': False}
 
