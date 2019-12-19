@@ -14,14 +14,16 @@ class dataset(data.Dataset):
         # normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         # resize = transforms.Resize((224, 224))
         resize = transforms.Resize((size, size))
-        normalize = transforms.Normalize((0,), (1,))
+        normalize = transforms.Normalize((0.1626,), (0.3356,))
         if mode == 'train':
             self.transform = transforms.Compose([resize,
                                                 transforms.RandomRotation(15),
-                                                transforms.ToTensor()])
+                                                transforms.ToTensor(),
+                                                normalize])
         else:
             self.transform = transforms.Compose([resize,
-                                                transforms.ToTensor()])
+                                                transforms.ToTensor(),
+                                                normalize])
         if mode == 'train':
             self.txt_path = 'images_labels_train.txt'
         else:
