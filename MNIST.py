@@ -102,6 +102,7 @@ def main():
         datasets.MNIST('../data', train=True, download=True,
                        transform=transforms.Compose([
                             transforms.Resize((256,256)),
+                            transforms.RandomRotation(15),
                             transforms.ToTensor(),
                             transforms.Normalize((0.1307,), (0.3081,))
                        ])),
