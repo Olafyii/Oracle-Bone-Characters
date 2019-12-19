@@ -54,9 +54,9 @@ def save_model(model, epoch):
 if __name__ == '__main__':
     device = torch.device('cuda')
 
-    model = ConvNet().to(device)
-    trainset = dataset(mode='train', size=28)
-    testset = dataset(mode='test', size=28)
+    model = Alex().to(device)
+    trainset = dataset(mode='train', size=256)
+    testset = dataset(mode='test', size=256)
 
     params = {'batch_size': 64, 'shuffle': True, 'num_workers': 0, 'pin_memory': False}
 
