@@ -8,12 +8,12 @@ import torch.nn.functional as F
 import torch
 
 class dataset(data.Dataset):
-    def __init__(self, root_path='F:\\数字图像处理\\DIP 2', mode='train'):
+    def __init__(self, root_path='F:\\数字图像处理\\DIP 2', mode='train', size=256):
         super(dataset, self).__init__()
         self.root_path = root_path
         # normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         # resize = transforms.Resize((224, 224))
-        resize = transforms.Resize((93, 93))
+        resize = transforms.Resize((size, size))
         normalize = transforms.Normalize((0,), (1,))
         if mode == 'train':
             self.transform = transforms.Compose([resize,
@@ -23,9 +23,9 @@ class dataset(data.Dataset):
             self.transform = transforms.Compose([resize,
                                                 transforms.ToTensor()])
         if mode == 'train':
-            self.txt_path = os.path.join(root_path, 'images_labels_train.txt')
+            self.txt_path = 'images_labels_train.txt'
         else:
-            self.txt_path = os.path.join(root_path, 'images_labels_test.txt')
+            self.txt_path = 'images_labels_test.txt'
         
         f = open(self.txt_path)
         lines = f.readlines()
@@ -44,12 +44,12 @@ class dataset(data.Dataset):
         y = self.y[idx]
         return x, y
 
-class Model(nn.Module):
+class Alex(nn.Module):
     def __init__(self, num_classes=40):
-        super(Model, self).__init__()
+        super(Alex, self).__init__()
         self.Conv1 = nn.Conv2d(1, 3, 3, 1)
         self.alex = models.alexnet(pretrained=False)
-        self.fc = nn.Linear(1000, 40)
+        self.fc = nn.Linear(1000, num_classes)
     
     def forward(self, x):
         x = self.Conv1(x)
@@ -60,16 +60,16 @@ class Model(nn.Module):
 
         return x
 
-class Net(nn.Module):
-    def __init__(self):
-        super(Net, self).__init__()
+class ConvNet(nn.Module):
+    def __init__(self, num_classes=40):
+        super(ConvNet, self).__init__()
         self.conv1 = nn.Conv2d(1, 32, 3, 1)
         self.conv2 = nn.Conv2d(32, 64, 3, 1)
         self.conv3 = nn.Conv2d(64, 128, 3, 1)
         self.dropout1 = nn.Dropout2d(0.25)
         self.dropout2 = nn.Dropout2d(0.5)
-        self.fc1 = nn.Linear(236672, 256)
-        self.fc2 = nn.Linear(256, 40)
+        self.fc1 = nn.Linear(15488, 256)
+        self.fc2 = nn.Linear(256, num_classes)
 
     def forward(self, x):
         x = self.conv1(x)

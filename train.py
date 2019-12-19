@@ -1,11 +1,12 @@
 import torch.utils.data as data
-from utils import dataset, Model, Net
+from utils import *
 import torchvision.models as models
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
 from sklearn.metrics import accuracy_score
 import numpy as np
+import os
 
 def train(model, trainloader, optimizer, epoch, device):
     N_count = 0
@@ -45,21 +46,31 @@ def validation(model, testloader, epoch, device):
     all_y_pred = torch.stack(all_y_pred, dim=0)
     accu = accuracy_score(all_y.cpu().data.squeeze().numpy(), all_y_pred.cpu().data.squeeze().numpy())
     print('Accu: %f' % accu)
+    return accu
 
+def save_model(model, epoch):
+    torch.save(model.state_dict(), os.path.join('models', 'epoch_%d.pth'%epoch))
 
 if __name__ == '__main__':
     device = torch.device('cuda')
 
-    model = Net().to(device)
-    trainset = dataset(mode='train')
-    testset = dataset(mode='test')
+    model = ConvNet().to(device)
+    trainset = dataset(mode='train', size=28)
+    testset = dataset(mode='test', size=28)
 
-    params = {'batch_size': 128, 'shuffle': True, 'num_workers': 0, 'pin_memory': False}
+    params = {'batch_size': 64, 'shuffle': True, 'num_workers': 0, 'pin_memory': False}
 
     trainloader = data.DataLoader(trainset, **params)
     testloader = data.DataLoader(testset, **params)
 
     optimizer = torch.optim.Adadelta(model.parameters(), lr=1)
-    for epoch in range(100):
+    best_accu = 0
+    for epoch in range(1000):
         train(model, trainloader, optimizer, epoch, device)
-        validation(model, testloader, epoch, device)
+        accu = validation(model, testloader, epoch, device)
+        if accu > best_accu:
+            best_accu = accu
+            if accu > 0.83:
+                save_model(model, epoch)
+    print('best_accu', best_accu)
+
