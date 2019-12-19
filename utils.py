@@ -38,7 +38,7 @@ class dataset(data.Dataset):
     
     def __getitem__(self, idx):
         # print(self.x[idx])
-        x = Image.open(os.path.join(self.root_path, 'dataset', self.x[idx]))#.convert('RGB')
+        x = Image.open(os.path.join(self.root_path, 'dataset', self.x[idx].split('\\')[0], self.x[idx].split('\\')[1]))#.convert('RGB')
         x = self.transform(x)
         x = 1 - x
         y = self.y[idx]
