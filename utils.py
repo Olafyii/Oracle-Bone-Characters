@@ -50,7 +50,7 @@ class Alex(nn.Module):
     def __init__(self, num_classes=40):
         super(Alex, self).__init__()
         self.Conv1 = nn.Conv2d(1, 3, 3, 1)
-        self.alex = models.alexnet(pretrained=False)
+        self.alex = models.resnet152(pretrained=False)
         self.fc = nn.Linear(1000, num_classes)
     
     def forward(self, x):
