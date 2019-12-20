@@ -49,7 +49,9 @@ def validation(model, testloader, epoch, device):
     return accu
 
 def save_model(model, epoch):
-    torch.save(model.state_dict(), os.path.join('models', 'epoch_%d.pth'%epoch))
+    if not os.path.exists('models/resnet'):
+        os.mkdir('models/resnet')
+    torch.save(model.state_dict(), os.path.join('models/resnet', 'epoch_%d.pth'%epoch))
 
 if __name__ == '__main__':
     device = torch.device('cuda')
