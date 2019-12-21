@@ -23,7 +23,7 @@ def train(model, trainloader, optimizer, epoch, device):
         raw_y_pred = model(x)
         loss = F.cross_entropy(raw_y_pred, y)
         print(loss.item())
-        Loss += loss  # stat
+        Loss += [loss.item()]  # stat
         loss.backward()
         optimizer.step()
         y_pred = torch.max(raw_y_pred, 1)[1]
