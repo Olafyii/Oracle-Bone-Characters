@@ -14,7 +14,6 @@ def train(model, trainloader, optimizer, epoch, device):
     Y_pred = []
     Y_true = []
     Loss = []
-    print('len(trainloader)', len(trainloader))
     for batch_idx, (x, y) in enumerate(trainloader):
         Y_true += list(y.cpu().numpy())  # stat
         N_count += x.size(0)
