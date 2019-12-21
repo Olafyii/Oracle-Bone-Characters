@@ -52,15 +52,15 @@ def save_model(model, epoch, save_path):
     torch.save(model.state_dict(), os.path.join('models/resnet', 'epoch_%d.pth'%epoch))
 
 if __name__ == '__main__':
-    save_path = 'models/resnet152_Adam'
+    save_path = 'models/resnet152_Adam_Task2'
     if not os.path.exists(save_path):
         os.mkdir(save_path)
-        
+
     device = torch.device('cuda')
 
-    model = Alex().to(device)
-    trainset = dataset(root_path='/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters', mode='train', size=256)
-    testset = dataset(root_path='/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters', mode='test', size=256)
+    model = Alex(10).to(device)
+    trainset = dataset(root_path='/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters', mode='train', size=256, task=2)
+    testset = dataset(root_path='/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters', mode='test', size=256, task=2)
 
     params = {'batch_size': 64, 'shuffle': True, 'num_workers': 0, 'pin_memory': False}
 

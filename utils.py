@@ -8,9 +8,10 @@ import torch.nn.functional as F
 import torch
 
 class dataset(data.Dataset):
-    def __init__(self, root_path='F:\\数字图像处理\\DIP 2', mode='train', size=256):
+    def __init__(self, root_path='F:\\数字图像处理\\DIP 2', mode='train', size=256, task=1):
         super(dataset, self).__init__()
         self.root_path = root_path
+        self.task = task
         # normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         # resize = transforms.Resize((224, 224))
         resize = transforms.Resize((size, size))
@@ -44,7 +45,10 @@ class dataset(data.Dataset):
         x = self.transform(x)
         x = 1 - x
         y = self.y[idx]
-        return x, y
+        if self.task == 2:
+            return x, int(y/4)
+        else:
+            return x, y
 
 class Alex(nn.Module):
     def __init__(self, num_classes=40):
