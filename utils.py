@@ -50,11 +50,12 @@ class dataset(data.Dataset):
         else:
             return x, y
 
-class Alex(nn.Module):
-    def __init__(self, num_classes=40):
-        super(Alex, self).__init__()
+class Model(nn.Module):
+    def __init__(self, model, num_classes=40):
+        super(Model, self).__init__()
+        model_dict = {'resnet152':models.resnet152, 'resnet50':models.resnet50, 'resnet18':models.resnet18, 'alexnet':models.alexnet, 'inception':models.inception_v3, 'vgg16':models.vgg16}
         self.Conv1 = nn.Conv2d(1, 3, 3, 1)
-        self.alex = models.resnet152(pretrained=False)
+        self.alex = model_dict[model](pretrained=False)
         self.fc = nn.Linear(1000, num_classes)
     
     def forward(self, x):

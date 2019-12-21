@@ -7,6 +7,7 @@ import torch.nn.functional as F
 from sklearn.metrics import accuracy_score
 import numpy as np
 import os
+import argparse
 
 def train(model, trainloader, optimizer, epoch, device):
     N_count = 0
@@ -57,8 +58,14 @@ def save_model(model, epoch, save_path):
     torch.save(model.state_dict(), os.path.join('models/resnet', 'epoch_%d.pth'%epoch))
 
 if __name__ == '__main__':
-    save_model_path = 'models/resnet152_Adadelta_Task1'
-    save_accu_path = 'losses/resnet152_Adadelta_Task1'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model', '-m', type=str)
+    parser.add_argument('--task', '-t', type=str)
+    args = parser.parse_args()
+    task = args.task
+
+    save_model_path = 'models/'+args.model+'_Adadelta_Task'+task
+    save_accu_path = 'losses/'+args.model+'_Adadelta_Task'+task
     if not os.path.exists(save_model_path):
         os.mkdir(save_model_path)
     if not os.path.exists(save_accu_path):
@@ -69,7 +76,7 @@ if __name__ == '__main__':
 
     device = torch.device('cuda')
 
-    model = Alex(40).to(device)
+    model = Model(model=args.model, num_classes=40).to(device)
     trainset = dataset(root_path=root_path, mode='train', size=256, task=1)
     testset = dataset(root_path=root_path, mode='test', size=256, task=1)
 
