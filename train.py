@@ -67,7 +67,7 @@ if __name__ == '__main__':
     trainloader = data.DataLoader(trainset, **params)
     testloader = data.DataLoader(testset, **params)
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=1)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.1)
     best_accu = 0
     for epoch in range(1000):
         train(model, trainloader, optimizer, epoch, device)
