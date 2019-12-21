@@ -16,7 +16,7 @@ def train(model, trainloader, optimizer, epoch, device):
     Loss = []
     print('len(trainloader)', len(trainloader))
     for batch_idx, (x, y) in enumerate(trainloader):
-        Y_true += list(y.numpy())  # stat
+        Y_true += list(y.cpu().numpy())  # stat
         N_count += x.size(0)
         optimizer.zero_grad()
         x, y = x.to(device), y.to(device)
@@ -27,7 +27,7 @@ def train(model, trainloader, optimizer, epoch, device):
         loss.backward()
         optimizer.step()
         y_pred = torch.max(raw_y_pred, 1)[1]
-        Y_pred += list(y_pred.numpy())  # stat
+        Y_pred += list(y_pred.cpu().numpy())  # stat
         accu = accuracy_score(y.cpu().data.squeeze().numpy(), y_pred.cpu().data.squeeze().numpy())
         print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}, Accu: {:.2f}%'.format(
                 epoch + 1, N_count, len(trainloader.dataset), 100. * (batch_idx + 1) / len(trainloader), loss.item(), 100 * accu))
