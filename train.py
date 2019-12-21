@@ -48,12 +48,14 @@ def validation(model, testloader, epoch, device):
     print('Accu: %f' % accu)
     return accu
 
-def save_model(model, epoch):
-    if not os.path.exists('models/resnet'):
-        os.mkdir('models/resnet')
+def save_model(model, epoch, save_path):
     torch.save(model.state_dict(), os.path.join('models/resnet', 'epoch_%d.pth'%epoch))
 
 if __name__ == '__main__':
+    save_path = 'models/resnet152_Adam'
+    if not os.path.exists(save_path):
+        os.mkdir(save_path)
+        
     device = torch.device('cuda')
 
     model = Alex().to(device)
@@ -72,7 +74,6 @@ if __name__ == '__main__':
         accu = validation(model, testloader, epoch, device)
         if accu > best_accu:
             best_accu = accu
-            if accu > 0.83:
-                save_model(model, epoch)
+            save_model(model, epoch, save_path)
     print('best_accu', best_accu)
 
