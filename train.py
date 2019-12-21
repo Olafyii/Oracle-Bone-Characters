@@ -89,9 +89,9 @@ if __name__ == '__main__':
         train_accu, loss = train(model, trainloader, optimizer, epoch, device)
         test_accu = validation(model, testloader, epoch, device)
 
-        train_accu_all += train_accu
-        train_loss_all += loss
-        test_accu_all += test_accu
+        train_accu_all += [train_accu]
+        train_loss_all += [loss]
+        test_accu_all += [test_accu]
 
         A = np.array(train_accu_all)
         B = np.array(train_loss_all)
