@@ -64,12 +64,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
     task = args.task
 
-    save_model_path = 'models/'+args.model+'_Adadelta_Task'+task
-    save_accu_path = 'losses/'+args.model+'_Adadelta_Task'+task
+    save_model_path = 'models_1221/'+args.model+'_Adadelta_Task'+task
+    save_accu_path = 'losses_1221/'+args.model+'_Adadelta_Task'+task
     if not os.path.exists(save_model_path):
-        os.mkdir(save_model_path)
+        os.makedirs(save_model_path)
     if not os.path.exists(save_accu_path):
-        os.mkdir(save_accu_path)
+        os.makedirs(save_accu_path)
 
     root_path = '/lustre/home/acct-cszlq/cszlq/lwk/Oracle-Bone-Characters'
     # root_path = 'F:\\数字图像处理\\DIP 2'
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     train_accu_all = []
     train_loss_all = []
     test_accu_all = []
-    for epoch in range(1000):
+    for epoch in range(200):
         train_accu, loss = train(model, trainloader, optimizer, epoch, device)
         test_accu = validation(model, testloader, epoch, device)
 
