@@ -57,8 +57,8 @@ def save_model(model, epoch, save_path):
     torch.save(model.state_dict(), os.path.join('models/resnet', 'epoch_%d.pth'%epoch))
 
 if __name__ == '__main__':
-    save_model_path = 'models/resnet152_Adadelta_Task2'
-    save_accu_path = 'losses/resnet152_Adadelta_Task2'
+    save_model_path = 'models/resnet152_Adadelta_Task1'
+    save_accu_path = 'losses/resnet152_Adadelta_Task1'
     if not os.path.exists(save_model_path):
         os.mkdir(save_model_path)
     if not os.path.exists(save_accu_path):
@@ -69,9 +69,9 @@ if __name__ == '__main__':
 
     device = torch.device('cuda')
 
-    model = Alex(10).to(device)
-    trainset = dataset(root_path=root_path, mode='train', size=256, task=2)
-    testset = dataset(root_path=root_path, mode='test', size=256, task=2)
+    model = Alex(40).to(device)
+    trainset = dataset(root_path=root_path, mode='train', size=256, task=1)
+    testset = dataset(root_path=root_path, mode='test', size=256, task=1)
 
     params = {'batch_size': 64, 'shuffle': True, 'num_workers': 0, 'pin_memory': False}
 
