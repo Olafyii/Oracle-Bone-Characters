@@ -91,7 +91,7 @@ if __name__ == '__main__':
     train_accu_all = []
     train_loss_all = []
     test_accu_all = []
-    for epoch in range(200):
+    for epoch in range(1000):
         train_accu, loss = train(model, trainloader, optimizer, epoch, device)
         test_accu = validation(model, testloader, epoch, device)
 
