@@ -64,8 +64,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     task = args.task
 
-    save_model_path = 'models_1221/'+args.model+'_Adadelta_Task'+task
-    save_accu_path = 'losses_1221/'+args.model+'_Adadelta_Task'+task
+    save_model_path = 'models_1222/'+args.model+'_Adadelta_Task'+task
+    save_accu_path = 'losses_1222/'+args.model+'_Adadelta_Task'+task
     if not os.path.exists(save_model_path):
         os.makedirs(save_model_path)
     if not os.path.exists(save_accu_path):
