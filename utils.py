@@ -27,8 +27,10 @@ class dataset(data.Dataset):
                                                 normalize])
         if mode == 'train':
             self.txt_path = 'images_labels_train.txt'
-        else:
+        elif mode == 'test':
             self.txt_path = 'images_labels_test.txt'
+        elif mode == 'task3':
+            self.txt_path = 'task3.txt'
         
         f = open(self.txt_path)
         lines = f.readlines()
