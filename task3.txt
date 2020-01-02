@@ -1,5 +1,5 @@
-images/0102.jpg 0
-images/0111.jpg 9
-images/0124.jpg 22
-images/0131.jpg 29
-images/0139.jpg 37
+images\\0102.jpg 0
+images\\0111.jpg 9
+images\\0124.jpg 22
+images\\0131.jpg 29
+images\\0139.jpg 37
